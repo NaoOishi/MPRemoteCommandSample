@@ -79,8 +79,8 @@ class ViewController: UIViewController {
     }
 
     // ADG初期設定
-        adg = ADGManagerViewController(locationID: "広告枠IDを入れる",
     func setupADG() {
+        adg = ADGManagerViewController(locationID: "広告枠IDを入れる",
                                        adType: .adType_Free,
                                        rootViewController: self)
 
