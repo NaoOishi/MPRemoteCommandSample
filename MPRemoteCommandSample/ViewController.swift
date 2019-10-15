@@ -22,7 +22,8 @@ class ViewController: UIViewController {
         // 音声ファイルの指定 & 再生
         setupPlayer()
         // ADGの設定
-        setUpADG()
+        setupADG()
+        updateNowPlayingInfo()
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,8 +65,8 @@ class ViewController: UIViewController {
     }
 
     // ADG初期設定
-    func setUpADG() {
         adg = ADGManagerViewController(locationID: "広告枠IDを入れる",
+    func setupADG() {
                                        adType: .adType_Free,
                                        rootViewController: self)
 
@@ -86,7 +87,17 @@ class ViewController: UIViewController {
         adg?.loadRequest()
     }
 
-    @objc func remoteTogglePlayPause(_ event: MPRemoteCommandEvent) {
+    func updateNowPlayingInfo() {
+        let defaultCenter = MPNowPlayingInfoCenter.default()
+        defaultCenter.nowPlayingInfo?[MPMediaItemPropertyTitle] = "title"  // シングル名
+        defaultCenter.nowPlayingInfo?[MPMediaItemPropertyArtist] = "artist"  // アーティスト名
+        defaultCenter.nowPlayingInfo?[MPMediaItemPropertyArtwork] = "artwork"  // ジャケット (MPMediaItemArtwork)
+        defaultCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 1.0
+        defaultCenter.nowPlayingInfo?[MPMediaItemPropertyPlaybackDuration] = audioPlayer?.duration  // ミュージックの長さ
+        defaultCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = audioPlayer?.currentTime  // ミュージックの再生時点
+    }
+
+    func remoteTogglePlayPause() {
         if let player = audioPlayer {
             if player.isPlaying {
                 player.stop()
