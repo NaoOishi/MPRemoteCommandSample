@@ -38,12 +38,26 @@ class ViewController: UIViewController {
     // RemoteCommandのセレクタを指定
     func addRemoteCommandEvent() {
         let commandCenter = MPRemoteCommandCenter.shared()
-        commandCenter.togglePlayPauseCommand.addTarget(self, action: #selector(type(of: self).remoteTogglePlayPause(_:)))
-        commandCenter.playCommand.addTarget(self, action: #selector(type(of: self).remotePlay(_:)))
-        commandCenter.pauseCommand.addTarget(self, action: #selector(type(of: self).remotePause(_:)))
-        commandCenter.nextTrackCommand.addTarget(self, action: #selector(type(of: self).remoteNextTrack(_:)))
-        commandCenter.previousTrackCommand.addTarget(self, action: #selector(type(of: self).remotePrevTrack(_:)))
-
+        commandCenter.togglePlayPauseCommand.addTarget { (event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus in
+            self.remoteTogglePlayPause()
+            return .success
+        }
+        commandCenter.playCommand.addTarget { (event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus in
+            self.remotePlay()
+            return .success
+        }
+        commandCenter.pauseCommand.addTarget { (event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus in
+            self.remotePause()
+            return .success
+        }
+        commandCenter.nextTrackCommand.addTarget { (event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus in
+            self.remoteNextTrack()
+            return .success
+        }
+        commandCenter.previousTrackCommand.addTarget { (event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus in
+            self.remotePrevTrack()
+            return .success
+        }
     }
 
     // 音声ファイルの指定 & 再生
@@ -96,22 +110,22 @@ class ViewController: UIViewController {
         }
     }
 
-    @objc func remotePlay(_ event: MPRemoteCommandEvent) {
+    func remotePlay() {
         if let player = audioPlayer {
             player.play()
         }
     }
 
-    @objc func remotePause(_ event: MPRemoteCommandEvent) {
+    func remotePause() {
         if let player = audioPlayer {
             player.pause()
         }
     }
 
-    @objc func remoteNextTrack(_ event: MPRemoteCommandEvent) {
+    func remoteNextTrack() {
     }
 
-    @objc func remotePrevTrack(_ event: MPRemoteCommandEvent) {
+    func remotePrevTrack() {
     }
 }
 
