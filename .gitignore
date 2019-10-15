@@ -6,6 +6,9 @@
 build/
 DerivedData/
 
+# Exclude CocoaPods directory
+Pods
+
 ## Various settings
 *.pbxuser
 !default.pbxuser
