@@ -1,0 +1,16 @@
+PODS:
+  - AdGeneration (2.15.2)
+
+DEPENDENCIES:
+  - AdGeneration
+
+SPEC REPOS:
+  trunk:
+    - AdGeneration
+
+SPEC CHECKSUMS:
+  AdGeneration: 36d8f2bdb4513488244df9112ea18cc530f85a24
+
+PODFILE CHECKSUM: 9ffaab1e20a896fbf0d45a948a190ff625db0c63
+
+COCOAPODS: 1.8.3

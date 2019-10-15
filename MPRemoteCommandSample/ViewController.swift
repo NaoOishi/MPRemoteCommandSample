@@ -7,10 +7,13 @@ import UIKit
 import AVFoundation
 import AVKit
 import MediaPlayer
+import ADG
 
 class ViewController: UIViewController {
-    var audioPlayer:AVAudioPlayer?
-
+    private var audioPlayer:AVAudioPlayer?
+    private var adg: ADGManagerViewController?
+    @IBOutlet weak var adView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.beginReceivingRemoteControlEvents()
@@ -18,6 +21,18 @@ class ViewController: UIViewController {
         addRemoteCommandEvent()
         // 音声ファイルの指定 & 再生
         setupPlayer()
+        // ADGの設定
+        setUpADG()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    deinit {
+        // インスタンスの破棄
+        adg = nil
     }
 
     // RemoteCommandのセレクタを指定
@@ -46,6 +61,29 @@ class ViewController: UIViewController {
         } else {
             fatalError("Url is nil.")
         }
+    }
+
+    // ADG初期設定
+    func setUpADG() {
+        adg = ADGManagerViewController(locationID: "広告枠IDを入れる",
+                                       adType: .adType_Free,
+                                       rootViewController: self)
+
+        // HTMLテンプレートを使用したネイティブ広告を表示するためには以下のように配置するViewを指定します
+        adg?.adSize = CGSize(width: 300, height: 250)
+        adg?.addAdContainerView(self.adView)
+
+        adg?.delegate = self
+
+        // ネイティブ広告パーツ取得を有効
+        adg?.usePartsResponse = true
+
+        // インフォメーションアイコンのデフォルト表示
+        // デフォルト表示しない場合は必ずADGInformationIconViewの設置を実装してください
+        adg?.informationIconViewDefault = false
+        adg?.setEnableTestMode(true)
+        adg?.setEnableSound(true)
+        adg?.loadRequest()
     }
 
     @objc func remoteTogglePlayPause(_ event: MPRemoteCommandEvent) {
@@ -77,3 +115,22 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: ADGManagerViewControllerDelegate {
+
+    func adgManagerViewControllerReceiveAd(_ adgManagerViewController: ADGManagerViewController) {
+        print("Received an ad.")
+    }
+
+    func adgManagerViewControllerFailed(toReceiveAd adgManagerViewController: ADGManagerViewController, code: kADGErrorCode) {
+        print("Failed to receive an ad.")
+        // エラー時のリトライは特段の理由がない限り必ず記述するようにしてください。
+        switch code {
+        case .adgErrorCodeNeedConnection, // ネットワーク不通
+        .adgErrorCodeExceedLimit, // エラー多発
+        .adgErrorCodeNoAd: // 広告レスポンスなし
+            break
+        default:
+            adgManagerViewController.loadRequest()
+        }
+    }
+}
