@@ -13,7 +13,8 @@ class ViewController: UIViewController {
     private var audioPlayer:AVAudioPlayer?
     private var adg: ADGManagerViewController?
     @IBOutlet weak var adView: UIView!
-    
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.beginReceivingRemoteControlEvents()
@@ -80,7 +81,9 @@ class ViewController: UIViewController {
 
     // ADG初期設定
     func setupADG() {
-        adg = ADGManagerViewController(locationID: "広告枠IDを入れる",
+        indicator.startAnimating()
+
+        adg = ADGManagerViewController(locationID: "広告枠IDのを入れる",
                                        adType: .adType_Free,
                                        rootViewController: self)
 
@@ -143,6 +146,7 @@ class ViewController: UIViewController {
 extension ViewController: ADGManagerViewControllerDelegate {
 
     func adgManagerViewControllerReceiveAd(_ adgManagerViewController: ADGManagerViewController) {
+        indicator.stopAnimating()
         print("Received an ad.")
     }
 

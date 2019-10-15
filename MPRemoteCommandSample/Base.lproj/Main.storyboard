@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,21 +17,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y2N-KY-R8C" userLabel="adView">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="57" y="323" width="300" height="250"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pq3-Ix-O9A">
+                                        <rect key="frame" x="140" y="115" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="Qs7-Sl-5Sf"/>
+                                    <constraint firstItem="pq3-Ix-O9A" firstAttribute="centerX" secondItem="Y2N-KY-R8C" secondAttribute="centerX" id="hLG-3m-d4a"/>
+                                    <constraint firstAttribute="width" constant="300" id="lRD-ke-EQm"/>
+                                    <constraint firstItem="pq3-Ix-O9A" firstAttribute="centerY" secondItem="Y2N-KY-R8C" secondAttribute="centerY" id="yc7-si-Pmk"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Y2N-KY-R8C" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="CFp-Z5-GZW"/>
-                            <constraint firstItem="Y2N-KY-R8C" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="FHL-0H-sWY"/>
-                            <constraint firstItem="Y2N-KY-R8C" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FWz-0h-qSg"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Y2N-KY-R8C" secondAttribute="bottom" id="nXa-SJ-WaO"/>
+                            <constraint firstItem="Y2N-KY-R8C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Vjf-2v-cgY"/>
+                            <constraint firstItem="Y2N-KY-R8C" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="xuL-C4-77H"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="adView" destination="Y2N-KY-R8C" id="yFY-VR-p7o"/>
+                        <outlet property="indicator" destination="pq3-Ix-O9A" id="B22-5z-oiz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
